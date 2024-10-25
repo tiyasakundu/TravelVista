@@ -1,0 +1,31 @@
+.container {
+    padding: 90px 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; 
+}
+
+.card-text {
+    margin-top: auto; 
+}
+
+.card-img-top {
+    height: 300px; 
+    object-fit: cover; 
+    width: 100%; 
+}
+
+.btn-warning {
+    padding: 0.4rem 0.8rem; 
+    align-self: flex-start; 
+}

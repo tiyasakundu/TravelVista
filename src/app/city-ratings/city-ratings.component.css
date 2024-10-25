@@ -1,0 +1,13 @@
+.crop{
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+div{
+    cursor: pointer;
+}
+
+.star{
+    color: gold;
+}

@@ -1,0 +1,40 @@
+/* Navbar styling */
+.navbar {
+    background-color: #3b5998; /* Blueish color */
+    padding: 10px;
+    display: flex;
+    align-items: center;  /* Align items vertically */
+    justify-content: space-between;  /* Distribute space between logo and nav-links */
+  }
+  
+  /* Logo Styling */
+  .logo img {
+    width: 100px;  /* Adjust the width of the logo */
+    height: auto;
+  }
+  
+  /* Navigation Links Styling */
+  .nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;  /* Adds spacing between navigation items */
+  }
+  
+  .nav-links li {
+    display: inline;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: white; /* White text */
+    font-size: 18px;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .nav-links li a:hover {
+    text-decoration: underline;
+  }
+  

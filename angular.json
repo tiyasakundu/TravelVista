@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TravelAgency": {
+    "TravelVista": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -21,15 +21,20 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/favicon.ico",
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -64,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "TravelAgency:build:production"
+              "buildTarget": "TravelVista:build:production"
             },
             "development": {
-              "buildTarget": "TravelAgency:build:development"
+              "buildTarget": "TravelVista:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,5 +102,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "ddb7a1a8-36b9-4096-b359-de5dcfd19ad5"
   }
 }

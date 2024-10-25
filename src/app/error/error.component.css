@@ -1,0 +1,16 @@
+.error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.error-page h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.error-page p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}

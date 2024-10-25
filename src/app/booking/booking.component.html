@@ -1,0 +1,41 @@
+<div class="container mt-4">
+
+  <h1 class="text-center mb-4">Explore Your Next Destination</h1> 
+
+  <form class="d-flex ms-2 mb-4" role="search">
+    <input 
+      class="form-control me-2" 
+      type="search" 
+      [(ngModel)]="searchTerm" 
+      (ngModelChange)="filterCities()" 
+      placeholder="Search for a city" 
+      aria-label="Search" 
+      name="citySearch">
+    <button class="btn btn-outline-success" type="button">Search</button>
+  </form>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+
+    <div class="col" *ngFor="let city of filteredCities">
+      <div class="card">
+        <img [src]="city.image" class="card-img-top" [alt]="city.name">
+        <div class="card-body">
+          <h2 class="card-title">{{ city.name }}</h2>
+          <h5>{{ city.country }}</h5> 
+          <p>Rating: {{ city.rating }} / 5</p> 
+          <span class="star">
+            <app-city-ratings [rating]="city.rating"
+            (ratingClicked)="onRatingClicked($event)"></app-city-ratings>
+          </span>
+          <p>{{city.description}}</p>
+          <p class="card-text">Trip Cost: {{ city.cost | currency:'INR' }}</p>
+          <a [routerLink]="['/booking-details', city.name]" class="btn btn-warning">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredCities.length === 0" class="text-center">
+    <p>No cities found matching "{{ searchTerm }}"</p>
+  </div>
+</div>
