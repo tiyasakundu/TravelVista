@@ -1,12 +1,70 @@
 <div class="container" *ngIf="selectedCity">
     <h3>Book Your Trip Now!</h3>
-    <h1>{{ selectedCity.name }}</h1>
-
-    <img [src]="cityImage" alt="{{ selectedCity.name }}" class="img-fluid mb-4 custom-image">
     
-    <p>{{ selectedCity.description }}</p>
+    <div class="row mb-4">
 
-    <button class="btn btn-warning mt-4" (click)="onBack()">Go Back</button>
+        <div class="col-md-6">
+            <img [src]="cityImage" alt="{{ selectedCity.name }}" class="img-fluid custom-image">
+        </div>
+        
+
+        <div class="col-md-6">
+            <h1>{{ selectedCity.name }}</h1>
+            <p><strong>{{selectedCity.name}}</strong> is located in <strong>{{selectedCity.country}}</strong>. {{ selectedCity.description }}</p>
+            <p>Rating: {{ selectedCity.rating }} / 5</p>
+            <span class="star">
+                <app-city-ratings [rating]="selectedCity.rating"></app-city-ratings>
+            </span>
+            <p>Trip Cost: {{ selectedCity.cost | currency:'INR' }}</p>
+            
+
+            <button class="btn btn-primary mt-2 me-2" (click)="openEditCityModal()">Edit</button>
+            <button class="btn btn-danger mt-2 me-2" (click)="deleteCity()">Delete</button>
+            <button class="btn btn-warning mt-2" (click)="onBack()">Go Back</button>
+        </div>
+    </div>
+
+    <div *ngIf="showEditCityModal" class="modal" tabindex="-1" style="display: block;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit City</h5>
+                    <button type="button" class="btn-close" (click)="closeEditCityModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="updateCity()">
+                        <div class="mb-3">
+                            <label for="editCityName" class="form-label">City Name</label>
+                            <input type="text" class="form-control" id="editCityName" [(ngModel)]="selectedCity.name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCityCountry" class="form-label">Country</label>
+                            <input type="text" class="form-control" id="editCityCountry" [(ngModel)]="selectedCity.country" name="country" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCityDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editCityDescription" [(ngModel)]="selectedCity.description" name="description" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCityImage" class="form-label">Image URL</label>
+                            <input type="text" class="form-control" id="editCityImage" [(ngModel)]="selectedCity.image" name="image" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCityCost" class="form-label">Cost</label>
+                            <input type="number" class="form-control" id="editCityCost" [(ngModel)]="selectedCity.cost" name="cost" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCityRating" class="form-label">Rating</label>
+                            <input type="number" class="form-control" id="editCityRating" [(ngModel)]="selectedCity.rating" name="rating" required min="1" max="5">
+                        </div>
+                        <button type="submit" class="btn btn-success">Update City</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop fade show" *ngIf="showEditCityModal"></div>
 </div>
 
 <div class="container" *ngIf="!selectedCity">
@@ -14,5 +72,3 @@
     <p>The city details could not be retrieved. Please go back and try again.</p>
     <button class="btn btn-warning mt-4" (click)="onBack()">Go Back</button>
 </div>
-
-

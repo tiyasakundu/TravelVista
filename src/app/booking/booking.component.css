@@ -29,3 +29,8 @@
     padding: 0.4rem 0.8rem; 
     align-self: flex-start; 
 }
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.736); 
+    z-index: 1040; 
+}

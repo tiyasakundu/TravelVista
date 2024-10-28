@@ -5,6 +5,8 @@ import { BookingComponent } from './booking/booking.component';
 import { ContactusComponent } from './contactus/contactus.component';
 import { ErrorComponent } from './error/error.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
+import { AccountComponent } from './account/account.component';
+import { UserComponent } from './user/user.component';
 
 export const routes: Routes = [
     {
@@ -26,10 +28,20 @@ export const routes: Routes = [
         path:'contactus',
         component:ContactusComponent
     },
+    
+    {
+        path:'account',
+        component:AccountComponent
+    },
 
     {
         path:'booking-details/:id',
         component:BookingDetailsComponent
+    },
+
+    {
+        path:'user',
+        component:UserComponent
     },
 
     {
