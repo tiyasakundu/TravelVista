@@ -1,3 +1,67 @@
 .container {
     padding: 90px 20px;
 }
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    text-align: left;
+    font-size: 2rem;
+    color: black;
+    margin-bottom: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  mat-label {
+    color: black;
+    font-size: 1rem;
+  }
+  
+  .mat-input-element {
+    background-color: #f9f9f9; /* Light background for inputs */
+    color: black;
+    padding: 10px;
+  }
+  
+  .mat-form-field-outline {
+    border-color: #ccc;
+  }
+  
+  .mat-form-field-outline-thick {
+    border-color: #ccc;
+  }
+  
+  .submit-button {
+    background-color: #ffc107 !important; /* Yellow background */
+    color: black !important; /* Black text color initially */
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #ffc107 !important; /* Slightly darker yellow on hover */
+    color: black !important; /* Ensure text color stays black on hover */
+  }
+  
+  
+  .success-message {
+    color: rgb(0, 90, 0);
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 20px;
+  }
+  

@@ -32,37 +32,115 @@
                     <button type="button" class="btn-close" (click)="closeEditCityModal()"></button>
                 </div>
                 <div class="modal-body">
-                    <form (ngSubmit)="updateCity()">
+                    <form (ngSubmit)="updateCity(cityForm)" #cityForm="ngForm">
                         <div class="mb-3">
                             <label for="editCityName" class="form-label">City Name</label>
-                            <input type="text" class="form-control" id="editCityName" [(ngModel)]="selectedCity.name" name="name" required>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="editCityName"
+                                [(ngModel)]="editableCity.name"
+                                name="name"
+                                required
+                                minlength="2"
+                                #cityName="ngModel"
+                                [ngClass]="{'is-invalid': (cityName.touched || cityName.dirty) && cityName.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                <span *ngIf="cityName.errors?.['required']">City Name is required.</span>
+                                <span *ngIf="cityName.errors?.['minlength']">City Name should be at least 2 characters.</span>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="editCityCountry" class="form-label">Country</label>
-                            <input type="text" class="form-control" id="editCityCountry" [(ngModel)]="selectedCity.country" name="country" required>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="editCityCountry"
+                                [(ngModel)]="editableCity.country"
+                                name="country"
+                                required
+                                #cityCountry="ngModel"
+                                [ngClass]="{'is-invalid': (cityCountry.touched || cityCountry.dirty) && cityCountry.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                Country is required.
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="editCityDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="editCityDescription" [(ngModel)]="selectedCity.description" name="description" required></textarea>
+                            <textarea
+                                class="form-control"
+                                id="editCityDescription"
+                                [(ngModel)]="editableCity.description"
+                                name="description"
+                                required
+                                #cityDescription="ngModel"
+                                [ngClass]="{'is-invalid': (cityDescription.touched || cityDescription.dirty) && cityDescription.invalid}"
+                            ></textarea>
+                            <div class="invalid-feedback">
+                                Description is required.
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="editCityImage" class="form-label">Image URL</label>
-                            <input type="text" class="form-control" id="editCityImage" [(ngModel)]="selectedCity.image" name="image" required>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="editCityImage"
+                                [(ngModel)]="editableCity.image"
+                                name="image"
+                                required
+                                #cityImage="ngModel"
+                                [ngClass]="{'is-invalid': (cityImage.touched || cityImage.dirty) && cityImage.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                Image URL is required and must be a valid URL.
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="editCityCost" class="form-label">Cost</label>
-                            <input type="number" class="form-control" id="editCityCost" [(ngModel)]="selectedCity.cost" name="cost" required>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="editCityCost"
+                                [(ngModel)]="editableCity.cost"
+                                name="cost"
+                                required
+                                min="1"
+                                #cityCost="ngModel"
+                                [ngClass]="{'is-invalid': (cityCost.touched || cityCost.dirty) && cityCost.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                Cost is required and must be a positive number.
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="editCityRating" class="form-label">Rating</label>
-                            <input type="number" class="form-control" id="editCityRating" [(ngModel)]="selectedCity.rating" name="rating" required min="1" max="5">
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="editCityRating"
+                                [(ngModel)]="editableCity.rating"
+                                name="rating"
+                                required
+                                min="1"
+                                max="5"
+                                #cityRating="ngModel"
+                                [ngClass]="{'is-invalid': (cityRating.touched || cityRating.dirty) && cityRating.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                Rating is required and must be between 1 and 5.
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-success">Update City</button>
+                        <button type="submit" class="btn btn-success" [disabled]="cityForm.invalid">Update City</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    
+    
 
     <div class="modal-backdrop fade show" *ngIf="showEditCityModal"></div>
 </div>

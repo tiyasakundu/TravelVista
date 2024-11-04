@@ -29,7 +29,7 @@
           </span>
           <p>{{city.description}}</p>
           <p class="card-text">Trip Cost: {{ city.cost | currency:'INR' }}</p>
-          <a [routerLink]="['/booking-details', city.cityId]" class="btn btn-warning">Book Now</a>
+          <a [routerLink]="['/booking-details', city.cityId]" class="btn btn-warning">Details</a>
         </div>
       </div>
     </div>
@@ -46,45 +46,120 @@
 
   <div class="modal" tabindex="-1" *ngIf="showAddCityModal" style="display: block;">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add New City</h5>
-          <button type="button" class="btn-close" (click)="closeAddCityModal()"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New City</h5>
+                <button type="button" class="btn-close" (click)="closeAddCityModal()"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="addNewCity()" #cityForm="ngForm">
+                    <div class="mb-3">
+                        <label for="cityName" class="form-label">City Name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="cityName"
+                            [(ngModel)]="newCity.name"
+                            name="name"
+                            required
+                            minlength="2"
+                            #cityName="ngModel"
+                            [ngClass]="{'is-invalid': (cityName.touched || cityName.dirty) && cityName.invalid}"
+                        />
+                        <div class="invalid-feedback">
+                            <span *ngIf="cityName.errors?.['required']">City Name is required.</span>
+                            <span *ngIf="cityName.errors?.['minlength']">City Name should be at least 2 characters.</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cityCountry" class="form-label">Country</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="cityCountry"
+                            [(ngModel)]="newCity.country"
+                            name="country"
+                            required
+                            #cityCountry="ngModel"
+                            [ngClass]="{'is-invalid': (cityCountry.touched || cityCountry.dirty) && cityCountry.invalid}"
+                        />
+                        <div class="invalid-feedback">
+                            Country is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cityDescription" class="form-label">Description</label>
+                        <textarea
+                            class="form-control"
+                            id="cityDescription"
+                            [(ngModel)]="newCity.description"
+                            name="description"
+                            required
+                            #cityDescription="ngModel"
+                            [ngClass]="{'is-invalid': (cityDescription.touched || cityDescription.dirty) && cityDescription.invalid}"
+                        ></textarea>
+                        <div class="invalid-feedback">
+                            Description is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cityImage" class="form-label">Image URL or Path</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="cityImage"
+                            [(ngModel)]="newCity.image"
+                            name="image"
+                            required
+                            #cityImage="ngModel"
+                            [ngClass]="{'is-invalid': (cityImage.touched || cityImage.dirty) && cityImage.invalid}"
+                        />
+                        <div class="invalid-feedback">
+                            Image path or URL is required.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cityCost" class="form-label">Cost</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="cityCost"
+                            [(ngModel)]="newCity.cost"
+                            name="cost"
+                            required
+                            min="1"
+                            #cityCost="ngModel"
+                            [ngClass]="{'is-invalid': (cityCost.touched || cityCost.dirty) && cityCost.invalid}"
+                        />
+                        <div class="invalid-feedback">
+                            Cost is required and must be a positive number.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cityRating" class="form-label">Rating</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="cityRating"
+                            [(ngModel)]="newCity.rating"
+                            name="rating"
+                            required
+                            min="1"
+                            max="5"
+                            #cityRating="ngModel"
+                            [ngClass]="{'is-invalid': (cityRating.touched || cityRating.dirty) && cityRating.invalid}"
+                        />
+                        <div class="invalid-feedback">
+                            Rating is required and must be between 1 and 5.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning" [disabled]="cityForm.invalid">Add City</button>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-          <form (ngSubmit)="addNewCity()">
-            <div class="mb-3">
-              <label for="cityName" class="form-label">City Name</label>
-              <input type="text" class="form-control" id="cityName" [(ngModel)]="newCity.name" name="name" required>
-            </div>
-            <div class="mb-3">
-              <label for="cityCountry" class="form-label">Country</label>
-              <input type="text" class="form-control" id="cityCountry" [(ngModel)]="newCity.country" name="country" required>
-            </div>
-            <div class="mb-3">
-              <label for="cityDescription" class="form-label">Description</label>
-              <textarea class="form-control" id="cityDescription" [(ngModel)]="newCity.description" name="description" required></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="cityImage" class="form-label">Image URL</label>
-              <input type="text" class="form-control" id="cityImage" [(ngModel)]="newCity.image" name="image" required>
-            </div>
-            <div class="mb-3">
-              <label for="cityCost" class="form-label">Cost</label>
-              <input type="number" class="form-control" id="cityCost" [(ngModel)]="newCity.cost" name="cost" required>
-            </div>
-            <div class="mb-3">
-              <label for="cityRating" class="form-label">Rating</label>
-              <input type="number" class="form-control" id="cityRating" [(ngModel)]="newCity.rating" name="rating" required min="1" max="5">
-            </div>
-            <button type="submit" class="btn btn-warning">Add City</button>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
   <div class="modal-backdrop fade show" *ngIf="showAddCityModal"></div>
-  
 
 </div>

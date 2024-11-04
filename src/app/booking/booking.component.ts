@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BookingDetailsComponent } from '../booking-details/booking-details.component';
 import { CityRatingComponent } from "../city-ratings/city-ratings.component";
-import { CityService } from '../city.service'; 
+import { CityObsService } from '../city-obs.service'; 
 import { ICity } from '../booking-details/booking-details.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-booking',
@@ -14,13 +15,11 @@ import { ICity } from '../booking-details/booking-details.model';
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css']
 })
-export class BookingComponent implements OnInit {
+export class BookingComponent implements OnInit, OnDestroy {
   searchTerm: string = ''; 
   cities: ICity[] = []; 
   filteredCities: ICity[] = []; 
   showAddCityModal: boolean = false; 
-
-  
   newCity: ICity = {
     cityId: 0, 
     name: '',
@@ -31,11 +30,21 @@ export class BookingComponent implements OnInit {
     rating: 0
   };
 
-  constructor(private cityService: CityService) {} 
+  private subscription: Subscription = new Subscription();
+
+  constructor(private cityObsService: CityObsService) {} 
 
   ngOnInit(): void {
-    this.cities = this.cityService.getCities();
-    this.filteredCities = this.cities; 
+    this.subscription.add(
+      this.cityObsService.getCities().subscribe((cities: ICity[]) => {
+        this.cities = cities;
+        this.filteredCities = cities;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   filterCities() {
@@ -52,26 +61,24 @@ export class BookingComponent implements OnInit {
     alert(message); 
   }
 
-  
   openAddCityModal() {
     this.showAddCityModal = true;
   }
 
-  
   closeAddCityModal() {
     this.showAddCityModal = false;
   }
 
-  
   addNewCity() {
-    this.cityService.addCity(this.newCity); 
-    this.cities = this.cityService.getCities(); 
-    this.filterCities(); 
-    this.resetNewCity(); 
-    this.closeAddCityModal(); 
+    this.cityObsService.addCity(this.newCity).subscribe((cities: ICity[]) => {
+      this.cities = cities;
+      this.filterCities();
+    });
+    this.resetNewCity();
+    this.closeAddCityModal();
   }
-
   
+
   resetNewCity() {
     this.newCity = { cityId: 0, name: '', country: '', description: '', image: '', cost: 0, rating: 0 };
   }

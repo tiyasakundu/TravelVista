@@ -7,6 +7,7 @@ import { ErrorComponent } from './error/error.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { AccountComponent } from './account/account.component';
 import { UserComponent } from './user/user.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {
@@ -42,6 +43,11 @@ export const routes: Routes = [
     {
         path:'user',
         component:UserComponent
+    },
+
+    {
+        path:'login',
+        component:LoginComponent
     },
 
     {
